@@ -13,9 +13,17 @@ import sys
 from urllib.parse import parse_qs, urlparse
 
 BASE_DIR = Path(__file__).resolve().parent
-VENV_PYTHON = BASE_DIR / ".venv" / "bin" / "python"
-if VENV_PYTHON.exists() and Path(sys.executable).resolve() != VENV_PYTHON.resolve():
-    os.execv(str(VENV_PYTHON), [str(VENV_PYTHON), __file__] + sys.argv[1:])
+for _venv in (BASE_DIR / ".venv", BASE_DIR.parent.parent / ".venv"):
+    if (_venv / "bin" / "python").exists():
+        if Path(sys.prefix).resolve() != _venv.resolve():
+            os.execv(str(_venv / "bin" / "python"), [str(_venv / "bin" / "python"), __file__] + sys.argv[1:])
+        break
+
+PROJECT_ROOT = BASE_DIR if (BASE_DIR / "runs").exists() else BASE_DIR.parent.parent
+CACHE_DIR = PROJECT_ROOT / ".cache"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault("MPLCONFIGDIR", str(CACHE_DIR / "matplotlib"))
+os.environ.setdefault("YOLO_CONFIG_DIR", str(CACHE_DIR / "ultralytics"))
 
 import cv2
 import numpy as np
@@ -23,9 +31,9 @@ from ultralytics import YOLO
 
 from detect import CLASS_NAMES, run_inference_on_image
 
-WEIGHTS_PATH = BASE_DIR / "runs" / "detect" / "train" / "weights" / "best.pt"
-TEST_IMAGES_DIR = BASE_DIR / "datasets" / "freshness_yolov11_dataset" / "test" / "images"
-TRAIN_RUN_DIR = BASE_DIR / "runs" / "detect" / "train"
+WEIGHTS_PATH = PROJECT_ROOT / "runs" / "detect" / "train" / "weights" / "best.pt"
+TEST_IMAGES_DIR = PROJECT_ROOT / "datasets" / "freshness_yolov11_dataset" / "test" / "images"
+TRAIN_RUN_DIR = PROJECT_ROOT / "runs" / "detect" / "train"
 
 MODEL = YOLO(str(WEIGHTS_PATH) if WEIGHTS_PATH.exists() else "yolo11n.yaml")
 

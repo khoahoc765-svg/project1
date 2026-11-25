@@ -8,9 +8,11 @@ from pathlib import Path
 import sys
 
 BASE_DIR = Path(__file__).resolve().parent
-VENV_PYTHON = BASE_DIR / ".venv" / "bin" / "python"
-if VENV_PYTHON.exists() and Path(sys.executable).resolve() != VENV_PYTHON.resolve():
-    os.execv(str(VENV_PYTHON), [str(VENV_PYTHON), sys.argv[0]] + sys.argv[1:])
+for _venv in (BASE_DIR / ".venv", BASE_DIR.parent.parent / ".venv"):
+    if (_venv / "bin" / "python").exists():
+        if Path(sys.prefix).resolve() != _venv.resolve():
+            os.execv(str(_venv / "bin" / "python"), [str(_venv / "bin" / "python"), sys.argv[0]] + sys.argv[1:])
+        break
 
 CACHE_DIR = BASE_DIR / ".cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)

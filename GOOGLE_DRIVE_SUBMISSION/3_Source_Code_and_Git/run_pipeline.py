@@ -14,9 +14,11 @@ from pathlib import Path
 import sys
 
 BASE_DIR = Path(__file__).resolve().parent
-VENV_PYTHON = BASE_DIR / ".venv" / "bin" / "python"
-if VENV_PYTHON.exists() and Path(sys.executable).resolve() != VENV_PYTHON.resolve():
-    os.execv(str(VENV_PYTHON), [str(VENV_PYTHON), __file__] + sys.argv[1:])
+for _venv in (BASE_DIR / ".venv", BASE_DIR.parent.parent / ".venv"):
+    if (_venv / "bin" / "python").exists():
+        if Path(sys.prefix).resolve() != _venv.resolve():
+            os.execv(str(_venv / "bin" / "python"), [str(_venv / "bin" / "python"), __file__] + sys.argv[1:])
+        break
 
 from step1_download_or_prepare_data import prepare_dataset
 from step2_data_quality_audit import run_data_quality_audit

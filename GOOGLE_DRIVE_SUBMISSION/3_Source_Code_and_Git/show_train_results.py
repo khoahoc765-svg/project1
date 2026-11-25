@@ -8,11 +8,14 @@ from pathlib import Path
 import sys
 
 BASE_DIR = Path(__file__).resolve().parent
-VENV_PYTHON = BASE_DIR / ".venv" / "bin" / "python"
-if VENV_PYTHON.exists() and Path(sys.executable).resolve() != VENV_PYTHON.resolve():
-    os.execv(str(VENV_PYTHON), [str(VENV_PYTHON), __file__] + sys.argv[1:])
+for _venv in (BASE_DIR / ".venv", BASE_DIR.parent.parent / ".venv"):
+    if (_venv / "bin" / "python").exists():
+        if Path(sys.prefix).resolve() != _venv.resolve():
+            os.execv(str(_venv / "bin" / "python"), [str(_venv / "bin" / "python"), __file__] + sys.argv[1:])
+        break
 
-CACHE_DIR = BASE_DIR / ".cache"
+PROJECT_ROOT = BASE_DIR if (BASE_DIR / "runs").exists() else BASE_DIR.parent.parent
+CACHE_DIR = PROJECT_ROOT / ".cache"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("MPLCONFIGDIR", str(CACHE_DIR / "matplotlib"))
 os.environ.setdefault("YOLO_CONFIG_DIR", str(CACHE_DIR / "ultralytics"))
@@ -20,9 +23,9 @@ os.environ.setdefault("YOLO_CONFIG_DIR", str(CACHE_DIR / "ultralytics"))
 import pandas as pd
 from ultralytics import YOLO
 
-TRAIN_DIR = BASE_DIR / "runs" / "detect" / "train"
+TRAIN_DIR = PROJECT_ROOT / "runs" / "detect" / "train"
 WEIGHTS_PATH = TRAIN_DIR / "weights" / "best.pt"
-DATA_YAML = BASE_DIR / "dataset" / "data.yaml"
+DATA_YAML = PROJECT_ROOT / "dataset" / "data.yaml"
 RESULTS_CSV = TRAIN_DIR / "results.csv"
 
 
@@ -59,7 +62,16 @@ def main():
     print("ĐÁNH GIÁ TRỰC TIẾP TRỌNG SỐ best.pt TRÊN TẬP TEST ĐỘC LẬP")
     print("=" * 78)
     model = YOLO(str(WEIGHTS_PATH))
-    metrics = model.val(data=str(DATA_YAML), split="test", imgsz=256, plots=False, verbose=False)
+    metrics = model.val(
+        data=str(DATA_YAML),
+        split="test",
+        imgsz=256,
+        plots=False,
+        verbose=False,
+        project=str(PROJECT_ROOT / "runs" / "detect"),
+        name="val",
+        exist_ok=True,
+    )
 
     print(f" - Precision (Độ chính xác) : {metrics.box.mp * 100:.2f}%")
     print(f" - Recall (Độ nhạy)         : {metrics.box.mr * 100:.2f}%")

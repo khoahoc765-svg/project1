@@ -8,25 +8,28 @@ from pathlib import Path
 import sys
 
 BASE_DIR = Path(__file__).resolve().parent
-VENV_PYTHON = BASE_DIR / ".venv" / "bin" / "python"
-if VENV_PYTHON.exists() and Path(sys.executable).resolve() != VENV_PYTHON.resolve():
-    os.execv(str(VENV_PYTHON), [str(VENV_PYTHON), __file__] + sys.argv[1:])
+for _venv in (BASE_DIR / ".venv", BASE_DIR.parent.parent / ".venv"):
+    if (_venv / "bin" / "python").exists():
+        if Path(sys.prefix).resolve() != _venv.resolve():
+            os.execv(str(_venv / "bin" / "python"), [str(_venv / "bin" / "python"), __file__] + sys.argv[1:])
+        break
+
+PROJECT_ROOT = BASE_DIR if (BASE_DIR / "runs").exists() else BASE_DIR.parent.parent
+CACHE_DIR = PROJECT_ROOT / ".cache"
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault("MPLCONFIGDIR", str(CACHE_DIR / "matplotlib"))
+os.environ.setdefault("YOLO_CONFIG_DIR", str(CACHE_DIR / "ultralytics"))
 
 import cv2
 from ultralytics import YOLO
 from detect import run_inference_on_image
 
-CACHE_DIR = BASE_DIR / ".cache"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
-os.environ.setdefault("MPLCONFIGDIR", str(CACHE_DIR / "matplotlib"))
-os.environ.setdefault("YOLO_CONFIG_DIR", str(CACHE_DIR / "ultralytics"))
-
 
 def main():
-    weights_path = BASE_DIR / "runs" / "detect" / "train" / "weights" / "best.pt"
-    data_yaml = BASE_DIR / "dataset" / "data.yaml"
-    test_images_dir = BASE_DIR / "datasets" / "freshness_yolov11_dataset" / "test" / "images"
-    out_dir = BASE_DIR / "runs" / "detect" / "predict"
+    weights_path = PROJECT_ROOT / "runs" / "detect" / "train" / "weights" / "best.pt"
+    data_yaml = PROJECT_ROOT / "dataset" / "data.yaml"
+    test_images_dir = PROJECT_ROOT / "datasets" / "freshness_yolov11_dataset" / "test" / "images"
+    out_dir = PROJECT_ROOT / "runs" / "detect" / "predict"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     print("=" * 70)
