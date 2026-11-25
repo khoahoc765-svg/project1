@@ -1,0 +1,7 @@
+path: /Users/tranleanhquang/Downloads/game/freshness_detection_yolov11/datasets/freshness_yolov11_dataset
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 6
+names: ['Fresh Apple', 'Fresh Banana', 'Fresh Bell Pepper', 'Rotten Apple', 'Rotten Banana', 'Rotten Bell Pepper']

@@ -1,0 +1,15 @@
+# Virtual environment & cache
+.venv/
+venv/
+.cache/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Giữ lại trọng số best.pt và báo cáo kết quả để giảng viên chấm bài
+!runs/detect/train/weights/best.pt
+!runs/detect/train/*.png
+!runs/detect/train/*.jpg
+!runs/detect/train/*.csv
+!runs/detect/train/*.yaml
+!reports/**
