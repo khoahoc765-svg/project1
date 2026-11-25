@@ -1,0 +1,45 @@
+{
+  "dataset_yaml": "/Users/tranleanhquang/Downloads/game/freshness_detection_yolov11/datasets/freshness_yolov11_dataset/data.yaml",
+  "valid_images_per_split": {
+    "train": 120,
+    "valid": 30,
+    "test": 24
+  },
+  "total_valid_images": 174,
+  "total_bounding_boxes": 364,
+  "class_distribution": {
+    "Fresh apple": 67,
+    "Fresh banana": 62,
+    "Fresh bell pepper": 57,
+    "Rotten apple": 54,
+    "Rotten banana": 62,
+    "Rotten bell pepper": 62
+  },
+  "fresh_vs_rotten": {
+    "fresh_boxes": 186,
+    "rotten_boxes": 178,
+    "fresh_to_rotten_ratio": 1.045
+  },
+  "data_leakage_check": {
+    "train_val_overlap": 0,
+    "train_test_overlap": 0,
+    "val_test_overlap": 0,
+    "status": "PASSED (0 rò rỉ dữ liệu)"
+  },
+  "cleaned_noisy_files_count": 2,
+  "cleaned_noisy_files": [
+    {
+      "split": "train",
+      "image": "noisy_corrupt_bbox_02.jpg",
+      "label": "noisy_corrupt_bbox_02.txt",
+      "reason": "bbox_out_of_bounds_line_1"
+    },
+    {
+      "split": "train",
+      "image": "noisy_empty_label_01.jpg",
+      "label": "noisy_empty_label_01.txt",
+      "reason": "empty_label_file"
+    }
+  ],
+  "chart_path": "/Users/tranleanhquang/Downloads/game/freshness_detection_yolov11/reports/class_distribution.png"
+}

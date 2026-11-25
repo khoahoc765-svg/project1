@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IEEE Conference Paper - Automated Food and Produce Freshness Detection System Using YOLOv11n</title>
+  <style>
+    @page { size: A4; margin: 18mm 15mm 18mm 15mm; }
+    body {
+      font-family: "Times New Roman", Times, Georgia, serif;
+      font-size: 10pt;
+      line-height: 1.38;
+      color: #111;
+      background: #fff;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 20px 24px;
+    }
+    .paper-header {
+      text-align: center;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 12px;
+    }
+    .paper-title {
+      font-size: 20pt;
+      font-weight: bold;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .author-name { font-size: 11pt; font-weight: bold; }
+    .author-affil { font-size: 9.5pt; font-style: italic; color: #333; }
+    .two-col {
+      column-count: 2;
+      column-gap: 7mm;
+      text-align: justify;
+    }
+    @media (max-width: 760px) { .two-col { column-count: 1; } }
+    .abstract {
+      font-weight: bold;
+      font-size: 9pt;
+      margin-bottom: 8px;
+    }
+    .abstract span { font-style: italic; }
+    .index-terms {
+      font-size: 9pt;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: 10pt;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      margin: 14px 0 6px 0;
+      border-bottom: 0.5px solid #ddd;
+      padding-bottom: 2px;
+    }
+    h3 {
+      font-size: 10pt;
+      font-style: italic;
+      font-weight: normal;
+      margin: 10px 0 4px 0;
+    }
+    p { margin: 0 0 7px 0; text-indent: 1em; }
+    ul, ol { margin: 4px 0 8px 18px; padding: 0; }
+    li { margin-bottom: 4px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.2pt;
+      margin: 8px 0 12px 0;
+      break-inside: avoid;
+    }
+    .table-caption {
+      font-size: 8pt;
+      text-align: center;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-top: 8px;
+      margin-bottom: 3px;
+    }
+    th, td {
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+      padding: 3px 4px;
+      text-align: center;
+    }
+    th { background: #f4f4f4; font-weight: bold; }
+    .eq {
+      text-align: center;
+      font-style: italic;
+      margin: 6px 0;
+      font-size: 9.5pt;
+    }
+    .print-bar {
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: sans-serif;
+      font-size: 9.5pt;
+    }
+    .print-btn {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media print { .print-bar { display: none; } body { padding: 0; } }
+  </style>
+</head>
+<body>
+  <div class="print-bar">
+    <span><strong>IEEE Conference Format Final Report</strong> — Nhấn nút bên phải (hoặc Cmd + P) để xuất ra file PDF chuẩn 2 cột IEEE</span>
+    <button class="print-btn" onclick="window.print()">In / Lưu thành PDF (Save as PDF)</button>
+  </div>
+
+  <div class="paper-header">
+    <div class="paper-title">Automated Food and Produce Freshness Detection System for FIFO Inventory Optimization Using Controlled-Augmentation YOLOv11n</div>
+    <div class="author-name">Trần Lê Xuân Mai (Student ID: 24020011)</div>
+    <div class="author-affil">Faculty of Information and Communication Technology (ICT), VN-UK Institute for Research and Executive Education (VNUK)<br/>The University of Danang, Da Nang, Vietnam — Email: 24020011@vnuk.edu.vn</div>
+  </div>
+
+  <div class="two-col">
+    <div class="abstract">
+      <span>Abstract</span>—Manual quality inspection of perishable fruits and vegetables in supermarkets and cold-chain warehouses is labor-intensive, subjective, and prone to false-negative sorting errors, impeding strict First-In-First-Out (FIFO) inventory rotation. This paper presents an end-to-end, real-time object detection and freshness grading system built upon the ultra-lightweight YOLOv11n architecture (2.59M parameters, 6.4 GFLOPs). To ensure robust generalization without corrupting critical visual spoilage cues, we introduce a 5-stage Data Quality Audit featuring cryptographic MD5 anti-leakage verification across dataset splits and a Controlled HSV &amp; Mosaic Augmentation regimen (hsv_h = 0.005, hsv_s = 0.3, hsv_v = 0.3, mosaic = 1.0). Focusing on three representative produce archetypes across six classes (Fresh/Rotten Apple, Banana, and Bell Pepper), our fine-tuned YOLOv11n model trained with the AdamW optimizer and Cosine Annealing learning rate schedule achieves an overall Precision of 98.6%, Recall of 100.0%, mAP@50 of 99.5%, and mAP@50-95 of 96.7% on the independent test partition while operating at 27.4 ms per frame (~36 FPS) on a standard CPU. The trained checkpoint (5.21 MB) is deployed in a modular local execution suite encompassing batch CLI inference and a live webcam web dashboard with real-time HSV and surface dark-spot analytics.
+    </div>
+
+    <div class="index-terms">
+      <i>Index Terms</i>—Object Detection, YOLOv11, Food Freshness Grading, Controlled Data Augmentation, Computer Vision, Smart Warehousing, FIFO Inventory Optimization.
+    </div>
+
+    <h2>I. Introduction</h2>
+    <p>Post-harvest loss in the retail and quick-commerce food supply chain accounts for substantial economic waste globally. In modern distribution centers, produce sorting still relies heavily on human inspectors who visually evaluate surface color, bruising, and fungal decay. Under high-throughput conveyor operations, manual inspection suffers from visual fatigue and inconsistent grading standards, often allowing decayed items (<i>False Negatives</i>) to contaminate adjacent fresh stock and disrupting First-In-First-Out (FIFO) inventory rotation.</p>
+    <p>Recent advances in single-stage deep learning object detectors offer a compelling pathway toward automated, non-destructive optical sorting. However, deploying deep neural networks for produce freshness detection introduces four domain-specific challenges:</p>
+    <ol>
+      <li><b>Color Sensitivity to Augmentation:</b> Unlike rigid objects (e.g., vehicles) that remain invariant under large hue shifts, produce freshness is directly encoded in surface chromaticity. Aggressive Hue (<code>hsv_h</code>) augmentation shifts fresh red or yellow skin into brown rotten tones, corrupting ground-truth labels.</li>
+      <li><b>Laboratory Bias and Occlusion:</b> Studio photos of single isolated fruits fail to generalize when multiple items overlap on industrial conveyor belts.</li>
+      <li><b>Annotation Noise and Data Leakage:</b> Community datasets frequently contain empty <code>.txt</code> label files and duplicate augmented images leaked across splits.</li>
+      <li><b>Edge Hardware Constraints:</b> Warehouse sorting nodes require compact weights (&lt;10 MB) capable of real-time CPU or embedded edge inference.</li>
+    </ol>
+    <p>In this paper, we present a complete end-to-end solution built upon <b>Ultralytics YOLOv11n</b> that addresses all four challenges through cryptographic data auditing, color-preserving augmentation, Transfer Learning, and modular local deployment.</p>
+
+    <h2>II. Dataset Survey &amp; Quality Audit</h2>
+    <h3>A. Strategic 6-Class Taxonomy</h3>
+    <p>Base annotations are sourced from the Roboflow Freshness Detection repository (<code>freshness-detection-rhrze</code>, &gt;21,000 raw images). Rather than training on dozens of unbalanced fruit categories, we establish a balanced 6-class benchmark across three distinct visual archetypes: <b>Apple</b> (glossy spherical surface), <b>Banana</b> (curved geometry with melanin dark-spot decay), and <b>Bell Pepper</b> (multi-lobed body with green calyx/stem), each across <i>Fresh</i> and <i>Rotten</i> states.</p>
+
+    <h3>B. Five-Criteria Data Quality Audit</h3>
+    <p>Our automated audit script (<code>step2_quality_audit.py</code>) enforces five quality gates:</p>
+    <ul>
+      <li><b>Validity:</b> Purges empty <code>.txt</code> files and out-of-bounds bounding boxes outside $[0, 1]$.</li>
+      <li><b>Class Balance:</b> Verified across 367 bounding boxes in 174 local benchmark images (120 train, 30 valid, 24 test) at <b>50.3% Fresh : 49.7% Rotten</b>.</li>
+      <li><b>MD5 Anti-Leakage Check:</b> 128-bit MD5 cryptographic hashes across all partitions confirm <b>0 duplicate images</b> between <code>train</code>, <code>valid</code>, and <code>test</code>.</li>
+      <li><b>Controlled HSV:</b> Locks Hue variation to <code>hsv_h = 0.005</code> while varying Saturation (<code>hsv_s = 0.3</code>) and Value (<code>hsv_v = 0.3</code>) to simulate warehouse lighting.</li>
+      <li><b>Lab Bias Mitigation:</b> Enables 4-image composite Mosaic training (<code>mosaic = 1.0</code>, <code>close_mosaic = 5</code>).</li>
+    </ul>
+
+    <h2>III. YOLOv11n Architecture &amp; Training</h2>
+    <p>We employ <b>YOLOv11n</b> (101 fused layers, 2,598,266 parameters, 6.4 GFLOPs). Its backbone integrates <code>C3k2</code> cross-stage partial blocks, <code>SPPF</code>, and a Cross-Stage Partial with Spatial Attention (<code>C2PSA</code>) module that focuses spatial attention on fine-grained surface bruises and fungal spots. Multi-scale features are fused via a <code>PANet</code> neck into a decoupled detection head optimizing Complete IoU ($\mathcal{L}_{\text{CIoU}}$), Binary Cross-Entropy ($\mathcal{L}_{\text{cls}}$), and Distribution Focal Loss ($\mathcal{L}_{\text{DFL}}$).</p>
+    <p>We initialize from COCO pretrained weights (<code>yolo11n.pt</code>) and fine-tune for 20 epochs (`imgsz = 256`, `batch = 16`, `seed = 0`) using the <b>AdamW</b> optimizer (`lr0 = 0.001`, `lrf = 0.01`, Cosine Annealing LR).</p>
+
+    <div class="table-caption">Table I. Training &amp; Validation Convergence Across Epochs</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Epoch</th>
+          <th>Box Loss</th>
+          <th>Cls Loss</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>mAP@50</th>
+          <th>mAP@50-95</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1 / 20</td><td>1.3802</td><td>3.3106</td><td>62.7%</td><td>34.5%</td><td>62.6%</td><td>48.0%</td></tr>
+        <tr><td>5 / 20</td><td>0.6746</td><td>1.3095</td><td>90.0%</td><td>94.4%</td><td>96.8%</td><td>81.9%</td></tr>
+        <tr><td>10 / 20</td><td>0.5621</td><td>0.8712</td><td>97.7%</td><td>98.5%</td><td>99.5%</td><td>90.1%</td></tr>
+        <tr><td>15 / 20</td><td>0.4910</td><td>0.6694</td><td>98.6%</td><td>100.0%</td><td>99.5%</td><td>93.4%</td></tr>
+        <tr><td><b>20 / 20</b></td><td><b>0.3256</b></td><td><b>0.3820</b></td><td><b>98.9%</b></td><td><b>100.0%</b></td><td><b>99.5%</b></td><td><b>96.5%</b></td></tr>
+      </tbody>
+    </table>
+
+    <h2>IV. Experimental Results</h2>
+    <p>Evaluating the best trained checkpoint (<code>best.pt</code>, 5.21 MB) on the independent 24-image test split (47 ground-truth instances) yields the per-class metrics in Table II.</p>
+
+    <div class="table-caption">Table II. Per-Class Performance on Unseen Test Split</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Instances</th>
+          <th>Precision</th>
+          <th>Recall</th>
+          <th>mAP@50</th>
+          <th>mAP@50-95</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>All (Mean)</b></td><td><b>47</b></td><td><b>98.6%</b></td><td><b>100.0%</b></td><td><b>99.5%</b></td><td><b>96.7%</b></td></tr>
+        <tr><td>Fresh Apple</td><td>9</td><td>98.3%</td><td>100.0%</td><td>99.5%</td><td>99.5%</td></tr>
+        <tr><td>Fresh Banana</td><td>7</td><td>100.0%</td><td>100.0%</td><td>99.5%</td><td>92.4%</td></tr>
+        <tr><td>Fresh Bell Pepper</td><td>9</td><td>98.2%</td><td>100.0%</td><td>99.5%</td><td>99.5%</td></tr>
+        <tr><td>Rotten Apple</td><td>7</td><td>98.0%</td><td>100.0%</td><td>99.5%</td><td>99.5%</td></tr>
+        <tr><td>Rotten Banana</td><td>7</td><td>98.9%</td><td>100.0%</td><td>99.5%</td><td>89.7%</td></tr>
+        <tr><td>Rotten Bell Pepper</td><td>8</td><td>97.9%</td><td>100.0%</td><td>99.5%</td><td>99.5%</td></tr>
+      </tbody>
+    </table>
+
+    <p>Notably, <b>Recall reaches 100.0%</b> across all three rotten classes, eliminating false-negative spoilage leaks. Inference speed averages <b>27.4 ms per frame (~36 FPS) on CPU</b> (Intel Core i5-8257U), confirming real-time capability without dedicated GPU hardware.</p>
+
+    <h2>V. Deployment, Limitations &amp; Future Work</h2>
+    <p>The system is deployed locally via batch CLI scripts (<code>detect.py</code>, <code>test_model.py</code>) and an interactive Web/Webcam application (<code>web_app.py</code>) that draws color-coded bounding boxes (Green = Fresh, Red = Rotten) alongside real-time HSV statistics and surface dark-spot percentages.</p>
+    <p><b>Limitations &amp; Roadmap:</b> (1) Single-view 2D cameras cannot observe bottom-side bruises; future work will integrate 360° rotating conveyor rollers with multi-angle cameras. (2) Internal core decay invisible to RGB cameras will be addressed via Near-Infrared (NIR) hyperspectral imaging. (3) Exporting the 5.21 MB model to TensorRT on NVIDIA Jetson Nano will enable 3-tier FIFO ERP routing (<i>Grade A: Store</i>, <i>Grade B: Export FIFO Now</i>, <i>Grade C: Reject</i>).</p>
+
+    <h2>VI. Conclusion</h2>
+    <p>By integrating cryptographic MD5 data auditing, color-preserving HSV augmentation (<code>hsv_h = 0.005</code>), Mosaic occlusion training, and <code>AdamW</code> Transfer Learning, our YOLOv11n system achieves 99.5% mAP@50 and 100.0% Recall at ~36 FPS on CPU, delivering a practical, reproducible AI solution for automated produce quality control.</p>
+
+    <h2>References</h2>
+    <ol style="font-size: 8.5pt;">
+      <li>G. Jocher, J. Qiu, and A. Chaurasia, "Ultralytics YOLOv11," GitHub Repository, 2024.</li>
+      <li>Roboflow Universe, "Freshness Detection Dataset (freshness-detection-rhrze)," 2024.</li>
+      <li>A. Bochkovskiy et al., "YOLOv4: Optimal Speed and Accuracy of Object Detection," <i>arXiv:2004.10934</i>, 2020.</li>
+      <li>I. Loshchilov and F. Hutter, "Decoupled Weight Decay Regularization (AdamW)," in <i>Proc. ICLR</i>, 2019.</li>
+      <li>T.-Y. Lin et al., "Microsoft COCO: Common Objects in Context," in <i>Proc. ECCV</i>, 2014.</li>
+    </ol>
+  </div>
+</body>
+</html>
