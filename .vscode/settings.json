@@ -1,4 +1,7 @@
 {
   "python.defaultInterpreterPath": "/Users/tranleanhquang/Downloads/game/freshness_detection_yolov11/.venv/bin/python",
-  "python.terminal.activateEnvironment": true
+  "python.terminal.activateEnvironment": true,
+  "code-runner.executorMap": {
+    "python": "/Users/tranleanhquang/Downloads/game/freshness_detection_yolov11/.venv/bin/python -u"
+  }
 }
